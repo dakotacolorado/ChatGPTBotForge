@@ -1,17 +1,15 @@
 import type Discord from 'discord.js'
 import { type ChatCompletionRequestMessage } from 'openai/api'
 import { Configuration, OpenAIApi } from 'openai'
-import { getChatCompletion } from './chat-gpt-actions'
+import PlainChatBot from "./PlainChatBot";
 
-export default class ChatGptBot {
-  readonly openAIClient: OpenAIApi
+export default class DiscordChatBot extends PlainChatBot {
   private readonly botType: string
   private readonly chatHistory: ChatCompletionRequestMessage[]
 
   /**
-   * Start a chat-bot with OpenAI.ChatGPT.
+   * Start a chat-bot to handle Discord messages.
    *
-   * The chat-bot needs a backstory.  What's its name?  Where did it come from?  What is it like?
    * @param openAIKey The OpenAI API key
    * @param background Provide the chat-bot with a backstory
    * @param botType chat bot type (simple override for 'AI language model' in bot responses)
@@ -25,23 +23,30 @@ export default class ChatGptBot {
     openAIClient?: OpenAIApi,
     chatHistory?: ChatCompletionRequestMessage[]
   ) {
-    this.openAIClient = openAIClient ?? new OpenAIApi(new Configuration({ apiKey: openAIKey }))
+    super(openAIClient ?? new OpenAIApi(new Configuration({ apiKey: openAIKey })))
     this.botType = botType ?? 'AI language model'
     this.chatHistory = chatHistory ?? [{ role: 'system', content: background }]
+  }
+
+  /**
+   * Resets the chat-bot history to its initial state.
+   */
+  public resetBot (): DiscordChatBot {
+    return new DiscordChatBot('', '', this.botType, this.openAIClient, this.chatHistory.slice(0, 1))
   }
 
   /**
    * Reads incoming messages and returns a response from the chat-bot.
    * @param message The incoming message
    */
-  public async respondToMessage (message: Discord.Message): Promise<string> {
+  public async respondToDiscordMessage (message: Discord.Message): Promise<string> {
     console.log(`Bot handling message from ${message.author.username}`)
 
     // save the new message
     const name = message.author.username.replace(/[^\w]/g, '')
     this.chatHistory.push({ role: 'user', name, content: message.content })
 
-    const response = await getChatCompletion(this.openAIClient, this.chatHistory)
+    const response = await this.getChatCompletion(this.chatHistory)
 
     if (response !== 'No response.') {
       // save the response
@@ -49,9 +54,5 @@ export default class ChatGptBot {
       return response.replace('AI language model', this.botType)
         .replace('an AI language model', `a ${this.botType}`)
     }
-  }
-
-  public resetBot (): ChatGptBot {
-    return new ChatGptBot('', '', this.botType, this.openAIClient, this.chatHistory.slice(0, 1))
   }
 }
