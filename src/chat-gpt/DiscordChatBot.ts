@@ -55,4 +55,19 @@ export default class DiscordChatBot extends PlainChatBot {
         .replace('an AI language model', `a ${this.botType}`)
     }
   }
+
+  public async respondToStringMessage (message: string): Promise<string> {
+
+    // save the new message
+    this.chatHistory.push({ role: 'user', name: 'null', content: message })
+
+    const response = await this.getChatCompletion(this.chatHistory)
+
+    if (response !== 'No response.') {
+      // save the response
+      this.chatHistory.push({ role: 'assistant', content: response })
+      return response.replace('AI language model', this.botType)
+          .replace('an AI language model', `a ${this.botType}`)
+    }
+  }
 }

@@ -8,6 +8,9 @@ export type HandleMessage = (message: Discord.Message) => Promise<void>
 
 export class DiscordChannelTracker {
 
+    /** Discord channel to track */
+    channel
+
     /**
      * Tracks a Discord channel for messages.
      * @param discordToken Discord bot token
@@ -32,10 +35,9 @@ export class DiscordChannelTracker {
             ]
         })
 
-        let channel: Channel
         discordClient.on(Discord.Events.ClientReady, async () => {
             console.log(`Discord bot '${discordClient.user.username}' listening to channel '${channelId}'.`)
-            channel = await discordClient.channels.fetch(channelId)
+            this.channel = await discordClient.channels.fetch(channelId)
         })
 
         discordClient.on(
