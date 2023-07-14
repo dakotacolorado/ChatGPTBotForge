@@ -7,8 +7,8 @@ Collaborate with friends and Chef Woof in the chat to create recipes for any occ
 Ask a question like "Can you give me a recipe for Black Pepper Tagliatelle?" and Chef Woof will create a thread with that recipe for you.
 ## Screenshots
 <p float="center">
-  <img src="/images/chef_woof_1.jpg?raw=true" width="500" />
-  <img src="/images/chef_woof_2.jpg?raw=true" width="500" />
+  <img src="/images/chef_woof_1.JPG?raw=true" width="500" />
+  <img src="/images/chef_woof_2.JPG?raw=true" width="500" />
 </p>
 
 
