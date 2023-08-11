@@ -94,7 +94,7 @@ export class ProfessorWoof {
 
             const threadBot = this.discordChatBot.resetBot()
 
-            const quizQuestion = await threadBot.respondToStringMessage(`Level ${level} '${topic}' test.`)
+            const quizQuestion = await threadBot.respondToMessage(`Level ${level} '${topic}' test.`)
 
             const threadTopic = await this.discordChatBot.createTitleForPassage(quizQuestion)
 

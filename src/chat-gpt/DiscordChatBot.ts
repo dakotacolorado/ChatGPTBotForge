@@ -36,30 +36,13 @@ export default class DiscordChatBot extends PlainChatBot {
   }
 
   /**
-   * Reads incoming messages and returns a response from the chat-bot.
+   * Records a message and returns a response from the chat-bot.
    * @param message The incoming message
+   * @param user The user who sent the message
    */
-  public async respondToDiscordMessage (message: Discord.Message): Promise<string> {
-    console.log(`Bot handling message from ${message.author.username}`)
-
+  public async respondToMessage(message: string, user: string = 'null'): Promise<string> {
     // save the new message
-    const name = message.author.username.replace(/[^\w]/g, '')
-    this.chatHistory.push({ role: 'user', name, content: message.content })
-
-    const response = await this.getChatCompletion(this.chatHistory)
-
-    if (response !== 'No response.') {
-      // save the response
-      this.chatHistory.push({ role: 'assistant', content: response })
-      return response.replace('AI language model', this.botType)
-        .replace('an AI language model', `a ${this.botType}`)
-    }
-  }
-
-  public async respondToStringMessage (message: string): Promise<string> {
-
-    // save the new message
-    this.chatHistory.push({ role: 'user', name: 'null', content: message })
+    this.chatHistory.push({ role: 'user', name: user, content: message })
 
     const response = await this.getChatCompletion(this.chatHistory)
 
@@ -69,5 +52,13 @@ export default class DiscordChatBot extends PlainChatBot {
       return response.replace('AI language model', this.botType)
           .replace('an AI language model', `a ${this.botType}`)
     }
+  }
+
+  public async respondToDiscordMessage (message: Discord.Message): Promise<string> {
+    console.log(`Bot handling message from ${message.author.username}`)
+    return await this.respondToMessage(
+        message.content,
+        message.author.username.replace(/[^\w]/g, '')
+    )
   }
 }
