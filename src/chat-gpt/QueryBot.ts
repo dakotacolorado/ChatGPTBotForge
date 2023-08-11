@@ -1,7 +1,7 @@
 import {OpenAIApi} from "openai";
 import {ChatCompletionRequestMessage} from "openai/api";
 
-export default class PlainChatBot {
+export default class QueryBot {
     readonly openAIClient: OpenAIApi
 
     /**

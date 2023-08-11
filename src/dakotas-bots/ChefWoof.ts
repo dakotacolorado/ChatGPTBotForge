@@ -1,4 +1,4 @@
-import DiscordChatBot from "../chat-gpt/DiscordChatBot";
+import ChatBot from "../chat-gpt/ChatBot";
 import {RECIPES} from "../../config/recipes";
 import Discord from "discord.js";
 import {DiscordChannelTracker} from "../discord/DiscordChannelTracker";
@@ -42,7 +42,7 @@ export class ChefWoof {
 
     protected readonly discordToken: string
     /** Discord Chat Bot that responds to messages */
-    protected readonly discordChatBot: DiscordChatBot
+    protected readonly discordChatBot: ChatBot
     /** Discord Channel Tracker that tracks messages */
     protected readonly discordChannelTracker: DiscordChannelTracker
 
@@ -54,7 +54,7 @@ export class ChefWoof {
      */
     constructor(openAIKey: string, discordToken: string, channelId: string) {
         this.discordToken = discordToken
-        this.discordChatBot = new DiscordChatBot(openAIKey, background, 'Chef');
+        this.discordChatBot = new ChatBot(openAIKey, background, 'Chef');
         this.discordChannelTracker = new DiscordChannelTracker(discordToken, channelId, (m) => this.handleMessage(m))
     }
 

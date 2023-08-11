@@ -1,9 +1,9 @@
 import type Discord from 'discord.js'
 import { type ChatCompletionRequestMessage } from 'openai/api'
 import { Configuration, OpenAIApi } from 'openai'
-import PlainChatBot from "./PlainChatBot";
+import QueryBot from "./QueryBot";
 
-export default class DiscordChatBot extends PlainChatBot {
+export default class ChatBot extends QueryBot {
   private readonly botType: string
   private readonly chatHistory: ChatCompletionRequestMessage[]
 
@@ -31,8 +31,8 @@ export default class DiscordChatBot extends PlainChatBot {
   /**
    * Resets the chat-bot history to its initial state.
    */
-  public resetBot (): DiscordChatBot {
-    return new DiscordChatBot('', '', this.botType, this.openAIClient, this.chatHistory.slice(0, 1))
+  public resetBot (): ChatBot {
+    return new ChatBot('', '', this.botType, this.openAIClient, this.chatHistory.slice(0, 1))
   }
 
   /**

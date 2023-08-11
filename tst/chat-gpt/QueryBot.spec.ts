@@ -1,5 +1,5 @@
 import {Configuration, OpenAIApi} from "openai";
-import PlainChatBot from "../../src/chat-gpt/PlainChatBot";
+import QueryBot from "../../src/chat-gpt/QueryBot";
 
 describe(
     'PlainChatBot', () => {
@@ -7,7 +7,7 @@ describe(
         let chatBot;
         beforeAll(() => {
             console.log("API key ", process.env.OPENAI_API_KEY)
-            chatBot = new PlainChatBot(new OpenAIApi(new Configuration({apiKey: process.env.OPENAI_API_KEY})))
+            chatBot = new QueryBot(new OpenAIApi(new Configuration({apiKey: process.env.OPENAI_API_KEY})))
         })
 
         describe('getChatCompletion', () => {

@@ -1,4 +1,4 @@
-import DiscordChatBot from "../chat-gpt/DiscordChatBot";
+import ChatBot from "../chat-gpt/ChatBot";
 import Discord from "discord.js";
 import {DiscordChannelTracker} from "../discord/DiscordChannelTracker";
 
@@ -22,7 +22,7 @@ export class ProfessorWoof {
 
     protected readonly discordToken: string
     /** Discord Chat Bot that responds to messages */
-    protected readonly discordChatBot: DiscordChatBot
+    protected readonly discordChatBot: ChatBot
     /** Discord Channel Tracker that tracks messages */
     protected readonly discordChannelTracker: DiscordChannelTracker
 
@@ -34,7 +34,7 @@ export class ProfessorWoof {
      */
     constructor(openAIKey: string, discordToken: string, channelId: string) {
         this.discordToken = discordToken
-        this.discordChatBot = new DiscordChatBot(openAIKey, background, 'Professor');
+        this.discordChatBot = new ChatBot(openAIKey, background, 'Professor');
         this.discordChannelTracker = new DiscordChannelTracker(discordToken, channelId, (m) => this.handleMessage(m))
     }
 
@@ -88,6 +88,12 @@ export class ProfessorWoof {
         )
     }
 
+    /**
+     * Ask a question about a topic and create a thread with the test name.
+     * @param topic
+     * @param level
+     * @param frequency frequency to ask question (in milliseconds)
+     */
     scheduleQuestion(topic: string, level: string, frequency: number) {
         setInterval(async () => {
             console.log(`Starting scheduled question for ${topic} level ${level} at ${new Date()}`)
@@ -104,10 +110,10 @@ export class ProfessorWoof {
 
             await this.discordChannelTracker.sendMessageToChannel(thread, quizQuestion)
 
-        }, frequency); // 10 hours in milliseconds
+        }, frequency);
     }
 
-    setupChannelTrackerForThread(thread: Discord.ThreadChannel, threadBot: DiscordChatBot, quizQuestion: string){
+    setupChannelTrackerForThread(thread: Discord.ThreadChannel, threadBot: ChatBot, quizQuestion: string){
         let foundCorrectAnswer = false
         let attempts = 0
         const MAX_ATTEMPTS = 3

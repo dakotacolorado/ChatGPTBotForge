@@ -1,4 +1,4 @@
-import DiscordChatBot from "../chat-gpt/DiscordChatBot";
+import ChatBot from "../chat-gpt/ChatBot";
 import Discord from "discord.js";
 import {DiscordChannelTracker} from "../discord/DiscordChannelTracker";
 import {glob} from "glob";
@@ -25,7 +25,7 @@ export class CodingAssistant {
 
     protected readonly discordToken: string
     /** Discord Chat Bot that responds to messages */
-    protected readonly discordChatBot: DiscordChatBot
+    protected readonly discordChatBot: ChatBot
 
     /** Discord Channel Tracker that tracks messages */
     protected readonly discordChannelTracker: DiscordChannelTracker
@@ -48,7 +48,7 @@ export class CodingAssistant {
         const background = `You are an assistant for working on the following codebase:\n\n${formatFilesToMarkdown(files)}`
 
         this.discordToken = discordToken
-        this.discordChatBot = new DiscordChatBot(openAIKey, background, 'Chef');
+        this.discordChatBot = new ChatBot(openAIKey, background, 'Chef');
         this.discordChannelTracker = new DiscordChannelTracker(discordToken, channelId, (m) => this.handleMessage(m))
     }
 
