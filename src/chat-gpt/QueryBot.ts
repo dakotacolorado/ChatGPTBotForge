@@ -1,6 +1,8 @@
 import { type OpenAIApi } from 'openai'
 import { type ChatCompletionRequestMessage } from 'openai/api'
 
+const GPT_MODEL = 'gpt-4'
+
 export default class QueryBot {
   readonly openAIClient: OpenAIApi
 
@@ -31,7 +33,7 @@ export default class QueryBot {
     while (attempts < maxAttempts && completion !== null) {
       try {
         attempts += 1
-        completion = await this.openAIClient.createChatCompletion({ model: 'gpt-3.5-turbo-0301', messages })
+        completion = await this.openAIClient.createChatCompletion({ model: GPT_MODEL, messages })
       } catch (err) {
         console.error(`Request attempt ${attempts} to OpenAI failed with error ${err}`)
         if (attempts === maxAttempts) {
