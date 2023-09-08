@@ -43,6 +43,7 @@ export class DiscordChannelTracker {
         discordClient.on(
             Discord.Events.MessageCreate,
             async (message: Discord.Message) => {
+                console.log(message.channelId)
                 // ignore messages sent by the bot
                 if (discordClient.user.username !== message.author.username) {
                     // only respond to messages in the channel we're tracking

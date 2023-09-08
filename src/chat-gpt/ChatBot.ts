@@ -1,14 +1,14 @@
 import type Discord from 'discord.js'
 import { type ChatCompletionRequestMessage } from 'openai/api'
 import { Configuration, OpenAIApi } from 'openai'
-import QueryBot from "./QueryBot";
+import QueryBot from './QueryBot'
 
 export default class ChatBot extends QueryBot {
   private readonly botType: string
   private readonly chatHistory: ChatCompletionRequestMessage[]
 
   /**
-   * Start a chat-bot to handle Discord messages.
+   * Start a chat-bot to handle messages.
    *
    * @param openAIKey The OpenAI API key
    * @param background Provide the chat-bot with a backstory
@@ -40,7 +40,7 @@ export default class ChatBot extends QueryBot {
    * @param message The incoming message
    * @param user The user who sent the message
    */
-  public async respondToMessage(message: string, user: string = 'null'): Promise<string> {
+  public async respondToMessage (message: string, user = 'null'): Promise<string> {
     // save the new message
     this.chatHistory.push({ role: 'user', name: user, content: message })
 
@@ -50,15 +50,15 @@ export default class ChatBot extends QueryBot {
       // save the response
       this.chatHistory.push({ role: 'assistant', content: response })
       return response.replace('AI language model', this.botType)
-          .replace('an AI language model', `a ${this.botType}`)
+        .replace('an AI language model', `a ${this.botType}`)
     }
   }
 
   public async respondToDiscordMessage (message: Discord.Message): Promise<string> {
     console.log(`Bot handling message from ${message.author.username}`)
     return await this.respondToMessage(
-        message.content,
-        message.author.username.replace(/[^\w]/g, '')
+      message.content,
+      message.author.username.replace(/[^\w]/g, '')
     )
   }
 }
