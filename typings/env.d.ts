@@ -8,6 +8,7 @@ declare namespace NodeJS {
         TECH_SCIENCE_CODING_CHAT: string;
         WOOFS_KITCHEN_CHAT: string;
         WOOFS_CLASSROOM_CHAT: string;
+        SPEAK_EASY_CHAT: string;
         OPENAI_API_KEY: string;
         AWS_REGION: string;
         AWS_ACCESS_KEY_ID: string;
