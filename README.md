@@ -1,28 +1,37 @@
 # Package Summary
-Link ChatGPT to Discord server and create fun useful bots.
 
-# Chef Woof :poultry_leg:
+Developed specifically for my own Discord server, this package utilizes ChatGPT and the Discord API to quickly prototype and deploy bots. It's tailored for fast functionality and experimentation.
 
-Collaborate with friends and Chef Woof in the chat to create recipes for any occasion!
-Ask a question like "Can you give me a recipe for Black Pepper Tagliatelle?" and Chef Woof will create a thread with that recipe for you.
-## Screenshots
-<p float="center">
-  <img src="/images/chef_woof_1.JPG?raw=true" width="500" />
-  <img src="/images/chef_woof_2.JPG?raw=true" width="500" />
+---
+
+## Chef Woof :poultry_leg:
+
+Chef Woof is your virtual culinary companion. Chat with friends and Chef Woof to get recipes for various occasions.
+
+**How it works?**
+Ask a question like, "Can you share a recipe for Black Pepper Tagliatelle?" and Chef Woof creates a thread filled with the recipe details just for you.
+
+### Screenshots
+
+<p align="center">
+  <img src="/images/chef_woof_1.JPG?raw=true" alt="Chef Woof Screenshot 1" width="500" />
+  <img src="/images/chef_woof_2.JPG?raw=true" alt="Chef Woof Screenshot 2" width="500" />
 </p>
 
+---
 
+## Professor Woof :nerd_face:
 
-# Professor Woof :nerd_face:
-Ask Professor to quiz you on something to help prepare for tests.  Professor can also give daily quiz's in the chat to keep you studying.
+Professor Woof sends a daily challenge question tailored for interview prep. You get three tries to answer. If you don't get it right, he provides a detailed solution to help you learn.
 
+**How it works?**
+Receive a daily challenge question with three attempts. An unsuccessful answer is followed by a solution breakdown.
 
+---
 
-## Setup Commands
-- Start App `npm run start`
-## Testing
-This package uses Jest for testing.
+## Setup & Configuration
 
-### Testing Commands
-- Run all of the tests `npm run test`
-- Run a single test file `npm run test:single <tst/path/to/file.spec.ts>`
+### Commands
+- **Launch Application**: 
+  ```bash
+  npm run start
